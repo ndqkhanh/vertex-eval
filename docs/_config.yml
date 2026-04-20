@@ -1,0 +1,4 @@
+theme: jekyll-theme-cayman
+title: Vertex-Eval
+description: "Third-party agent evaluation platform with trajectory scoring, Pass@k / Pass^k, HORIZON attribution, and LaStraj federation."
+show_downloads: false
