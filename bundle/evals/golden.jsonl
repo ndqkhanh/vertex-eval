@@ -1,0 +1,12 @@
+{"id": "vertex-001", "trace_id": "lyra-T-100", "expected_pass_at_1": true, "expected_pass_power_3": true, "expected_pass": true}
+{"id": "vertex-002", "trace_id": "lyra-T-101", "expected_pass_at_1": true, "expected_pass_power_3": false, "expected_pass": true}
+{"id": "vertex-003", "trace_id": "lyra-T-102", "expected_pass_at_1": false, "expected_pass_power_3": false, "expected_pass": true}
+{"id": "vertex-004", "trace_id": "claude-T-100", "expected_pass_at_1": true, "expected_pass_power_3": true, "expected_pass": true}
+{"id": "vertex-005", "trace_id": "claude-T-101", "expected_pass_at_1": true, "expected_pass_power_3": false, "expected_pass": true}
+{"id": "vertex-006", "trace_id": "openclaw-T-100", "expected_pass_at_1": true, "expected_pass_power_3": true, "expected_pass": true}
+{"id": "vertex-007", "trace_id": "openclaw-T-101", "expected_pass_at_1": false, "expected_pass_power_3": false, "expected_pass": true}
+{"id": "vertex-008", "trace_id": "voyager-T-100", "expected_pass_at_1": true, "expected_pass_power_3": true, "expected_pass": true}
+{"id": "vertex-009", "trace_id": "metagpt-T-100", "expected_pass_at_1": true, "expected_pass_power_3": false, "expected_pass": true}
+{"id": "vertex-010", "trace_id": "chatdev-T-100", "expected_pass_at_1": true, "expected_pass_power_3": true, "expected_pass": true}
+{"id": "vertex-011", "trace_id": "lyra-T-103", "expected_pass_at_1": true, "expected_pass_power_3": true, "expected_pass": true}
+{"id": "vertex-012", "trace_id": "lyra-T-104", "expected_pass_at_1": false, "expected_pass_power_3": false, "expected_pass": true}

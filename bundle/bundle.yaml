@@ -1,0 +1,24 @@
+apiVersion: lyra.dev/v3
+kind: SourceBundle
+name: vertex-eval-judge
+version: 0.1.0
+description: Trajectory-first evaluator with Pass@k / Pass^k / judge pool / pairwise decorrelation.
+dual_use: false
+smoke_eval_threshold: 0.95
+persona: persona.md
+skills: skills/
+tools:
+  - kind: native
+    name: vertex_score
+  - kind: mcp
+    name: vertex_judge_pool
+    server: stdio:./tools/mcp_server.py
+memory:
+  seed: memory/seed.md
+evals:
+  golden: evals/golden.jsonl
+  rubric: evals/rubric.md
+verifier:
+  domain: agent-eval
+  command: python verifier/checker.py
+  budget_seconds: 60

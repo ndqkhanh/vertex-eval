@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Vertex-Eval — Third-Party Agent Evaluation Platform</title>
+<style>
+  :root { --bg:#0b1020; --fg:#e6ecff; --muted:#8aa0c8; --accent:#ffd47a; --accent-2:#a8d8ff; --border:#26251b; --card:#1a1710; --badge:#362d17; }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue",sans-serif;line-height:1.55}
+  a{color:var(--accent)}a:hover{text-decoration:underline}
+  header{padding:48px 32px 32px;border-bottom:1px solid var(--border);background:linear-gradient(160deg,#0b1020 0%,#26200b 80%)}
+  header h1{font-size:2.2rem;margin:0 0 8px}
+  header h2{font-size:1.05rem;font-weight:400;color:var(--muted);margin:0 0 16px}
+  .badges span{background:var(--badge);color:var(--accent-2);padding:4px 10px;border-radius:12px;font-size:.78rem;margin-right:8px;display:inline-block;margin-bottom:6px}
+  nav.tabs{display:flex;gap:4px;flex-wrap:wrap;padding:0 32px;border-bottom:1px solid var(--border);background:#15120a;position:sticky;top:0;z-index:5}
+  nav.tabs button{background:transparent;border:0;color:var(--muted);padding:14px 18px;cursor:pointer;font-size:.92rem;border-bottom:2px solid transparent}
+  nav.tabs button.active{color:var(--fg);border-bottom-color:var(--accent)}
+  main{max-width:1100px;margin:0 auto;padding:36px 32px 80px}
+  section.pane{display:none}section.pane.active{display:block}
+  h3{margin-top:36px;font-size:1.3rem}h4{margin-top:28px;font-size:1.05rem;color:var(--accent-2)}
+  table{border-collapse:collapse;width:100%;margin:12px 0 24px;font-size:.92rem}
+  th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}th{color:var(--muted);font-weight:500}
+  code{background:var(--card);padding:2px 6px;border-radius:4px;font-size:.88rem}
+  pre{background:var(--card);border:1px solid var(--border);padding:12px 16px;border-radius:6px;overflow-x:auto;font-size:.85rem;line-height:1.45}
+  ul{padding-left:20px}li{margin:6px 0}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:14px 0}
+  .card{background:var(--card);border:1px solid var(--border);padding:14px 16px;border-radius:8px}
+  .card h5{margin:0 0 6px;font-size:.98rem;color:var(--accent)}
+  .card p{margin:0;color:var(--muted);font-size:.88rem}
+  .hero-target{background:var(--card);border-left:3px solid var(--accent);padding:14px 18px;border-radius:4px;margin:14px 0;font-size:.95rem}
+  footer{color:var(--muted);font-size:.85rem;border-top:1px solid var(--border);padding:24px 32px;margin-top:40px}
+</style>
+</head>
+<body>
+<header>
+  <div class="badges"><span>Eval platform</span><span>Design-only · April 2026</span><span>Pass^k as SLA</span></div>
+  <h1>Vertex-Eval</h1>
+  <h2>Third-party trajectory-first agent evaluation — Pass^k as service-level contract, cross-channel evidence, HORIZON failure attribution, federated LaStraj corpus.</h2>
+  <div class="hero-target">
+    <b>Design target:</b> recover the <b>44 %</b> of safety violations that trajectory-opaque evaluation misses (per <a href="../../docs/38-claw-eval.md">Claw-Eval</a>) by operationalizing cross-channel evidence + Pass^k + HORIZON attribution as a SaaS — with judge-human agreement approaching HORIZON's <b>κ = 0.84</b>.
+  </div>
+</header>
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="overview">Overview</button>
+  <button class="tab-btn" data-tab="baselines">Honest Baselines</button>
+  <button class="tab-btn" data-tab="novel">Novel Contributions</button>
+  <button class="tab-btn" data-tab="arch">Architecture</button>
+  <button class="tab-btn" data-tab="blocks">Blocks</button>
+  <button class="tab-btn" data-tab="why">Why this stack</button>
+  <button class="tab-btn" data-tab="refs">References</button>
+</nav>
+
+<main>
+
+<section id="overview" class="pane active">
+  <h3>What Vertex-Eval is</h3>
+  <p>A SaaS evaluation platform that takes the methodology demonstrated in <a href="../../docs/38-claw-eval.md">Claw-Eval</a> (cross-channel evidence, Pass^k metric, fine-grained rubrics) and <a href="../../docs/27-horizon-long-horizon-degradation.md">HORIZON</a> (trajectory-grounded failure attribution) and packages it as a product. Customers push traces (+ audit logs + state snapshots) and get back trajectory-level scores, Pass^k metrics, failure-class distributions, and SLA breach alerts.</p>
+  <div class="grid">
+    <div class="card"><h5>Niche</h5><p>Teams shipping production agents who need honest, trajectory-first evaluation with consistency guarantees.</p></div>
+    <div class="card"><h5>Not</h5><p>A trace-storage product (LangSmith/Langfuse); a model provider; an agent runtime.</p></div>
+    <div class="card"><h5>Status</h5><p>Design specification. Not implemented.</p></div>
+  </div>
+  <h4>Files</h4>
+  <ul>
+    <li><a href="architecture.md">architecture.md</a></li>
+    <li><a href="architecture-tradeoff.md">architecture-tradeoff.md</a></li>
+    <li><a href="system-design.md">system-design.md</a></li>
+    <li><a href="blocks/">blocks/</a></li>
+  </ul>
+</section>
+
+<section id="baselines" class="pane">
+  <h3>Honest baselines</h3>
+  <table>
+    <tr><th>Baseline</th><th>Reported number</th><th>Source</th></tr>
+    <tr><td>Claw-Eval</td><td>2,159 rubric items × 300 tasks; <b>44 %</b> safety-violation recall gap for trajectory-opaque eval</td><td><a href="../../docs/38-claw-eval.md">docs/38</a></td></tr>
+    <tr><td>HORIZON</td><td>Judge-human agreement <b>κ = 0.84</b></td><td><a href="../../docs/27-horizon-long-horizon-degradation.md">docs/27</a></td></tr>
+    <tr><td>LangSmith / Langfuse / Phoenix</td><td>Trace storage + simple evaluators; not trajectory-first; no Pass^k SLA</td><td>Community</td></tr>
+    <tr><td>ClawBench (live web)</td><td>33.3 % Claude Sonnet 4.6 success</td><td><a href="../../docs/34-clawbench-live-web-tasks.md">docs/34</a></td></tr>
+  </table>
+</section>
+
+<section id="novel" class="pane">
+  <h3>Novel contributions</h3>
+  <div class="card"><h5>1. Pass^k as SLA contract</h5><p>Claw-Eval introduced Pass^k as a metric; Vertex-Eval turns it into a product SLA customers can buy against. First productization.</p></div>
+  <div class="card"><h5>2. Cross-channel evidence as third-party API</h5><p>Trace + audit + snapshot triangulation, served as SaaS. Operationalizes Claw-Eval's discipline for teams who can't build it in-house.</p></div>
+  <div class="card"><h5>3. Decorrelation metrics from the LLN thesis</h5><p>Pairwise failure correlation across deployed instances — measures population-scale reliability per the <a href="../../docs/53-chaos-engineering-next-era.md">chaos-engineering thesis</a>.</p></div>
+  <div class="card"><h5>4. LaStraj federation</h5><p>Opt-in, anonymized, reviewer-vetted cross-tenant adversarial-trajectory corpus. Builds the community agent-security benchmark that doesn't exist today.</p></div>
+  <div class="card"><h5>5. HORIZON attribution as default</h5><p>Every eval run ships failure-class attribution with quoted evidence. Raises research methodology to operational signal.</p></div>
+</section>
+
+<section id="arch" class="pane">
+  <h3>Architecture at a glance</h3>
+  <pre>Customer agent → [Trace Ingestion] → [Rubric Registry]
+                                       │
+                                       ▼
+                           [Cross-Channel Evidence]
+                           (trace + audit + snapshots)
+                                       │
+                                       ▼
+                              [Judge Pool (multi-family)]
+                                       │
+                  ┌────────────────────┼────────────────────┐
+                  ▼                    ▼                    ▼
+               Pass@k / Pass^k   HORIZON attribution   LaStraj federation
+                                       │
+                                       ▼
+                          Dashboards + alerts + API/SDK</pre>
+</section>
+
+<section id="blocks" class="pane">
+  <h3>Ten blocks</h3>
+  <ol>
+    <li><a href="blocks/01-trace-ingestion.md">01 Trace Ingestion</a></li>
+    <li><a href="blocks/02-rubric-registry.md">02 Rubric Registry</a></li>
+    <li><a href="blocks/03-cross-channel-evidence.md">03 Cross-Channel Evidence</a></li>
+    <li><a href="blocks/04-judge-pool.md">04 Judge Pool (multi-family)</a></li>
+    <li><a href="blocks/05-passk-metrics.md">05 Pass@k and Pass^k</a></li>
+    <li><a href="blocks/06-failure-attribution.md">06 HORIZON Failure Attribution</a></li>
+    <li><a href="blocks/07-lastraj-federation.md">07 LaStraj Red-Team Federation</a></li>
+    <li><a href="blocks/08-dashboards-alerts.md">08 Dashboards &amp; Alerts</a></li>
+    <li><a href="blocks/09-api-and-sdk.md">09 API &amp; SDK</a></li>
+    <li><a href="blocks/10-privacy-and-compliance.md">10 Privacy &amp; Compliance</a></li>
+  </ol>
+</section>
+
+<section id="why" class="pane">
+  <h3>Why this stack</h3>
+  <h4>Why Pass^k as SLA?</h4>
+  <p>Pass@k is generous; customers deploying agents want consistency, not lucky runs. Pass^k aligns with real product experience.</p>
+  <h4>Why cross-channel evidence?</h4>
+  <p>Trajectory-opaque eval misses 44 % of safety violations per Claw-Eval. The whole product thesis is operationalizing the fix.</p>
+  <h4>Why federated LaStraj?</h4>
+  <p>Human-crafted adversarial trajectories evade model monitors at much higher rates than auto-generated ones. A cross-tenant corpus is the only way to cover the long tail of human creativity.</p>
+  <h4>Why HORIZON attribution by default?</h4>
+  <p>"Pass rate dropped" isn't actionable. "plan_divergence spiked after yesterday's harness change" is.</p>
+</section>
+
+<section id="refs" class="pane">
+  <h3>Primary references</h3>
+  <ul>
+    <li><a href="../../docs/38-claw-eval.md">docs/38 — Claw-Eval (cross-channel, Pass^k)</a></li>
+    <li><a href="../../docs/27-horizon-long-horizon-degradation.md">docs/27 — HORIZON attribution</a></li>
+    <li><a href="../../docs/21-llm-as-judge-trajectory-eval.md">docs/21 — LLM-as-Judge &amp; trajectory eval</a></li>
+    <li><a href="../../docs/34-clawbench-live-web-tasks.md">docs/34 — ClawBench</a></li>
+    <li><a href="../../docs/26-linuxarena-production-agent-safety.md">docs/26 — LinuxArena / LaStraj</a></li>
+    <li><a href="../../docs/49-agents-of-chaos-red-teaming.md">docs/49 — Agents of Chaos</a></li>
+    <li><a href="../../docs/53-chaos-engineering-next-era.md">docs/53 — Chaos-engineering thesis / LLN</a></li>
+    <li><a href="../../docs/24-observability-tracing.md">docs/24 — Observability &amp; tracing</a></li>
+  </ul>
+</section>
+
+</main>
+<footer>Design specification. Not implemented. Part of the <a href="..">harness-engineering projects</a> index.</footer>
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');document.getElementById(btn.dataset.tab).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}));
+</script>
+</body>
+</html>
